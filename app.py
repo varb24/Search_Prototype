@@ -16,7 +16,7 @@ def main():
         WITH genai.vector.encode(
             $question,
             "OpenAI",
-            { token: $token,
+            { token: st.secrets['AI'],
               model: "text-embedding-3-small" }
         ) AS userEmbedding
         CALL db.index.vector.queryNodes('courseDescription', 10, userEmbedding)
