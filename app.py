@@ -31,7 +31,9 @@ def main():
             st.error("Please enter a question.")
             return
 
-        data = {'parameters': question}
+        data = {'parameters': 
+                {"question":question}
+               }
 
         # Perform the query
         try:
