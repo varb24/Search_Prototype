@@ -1,0 +1,2 @@
+streamlit
+neo4j~=5.24.0
