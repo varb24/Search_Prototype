@@ -11,6 +11,16 @@ def get_neo4j_driver(uri, user, password):
 
 # Main function
 def main():
+    just_search = '''
+        WITH genai.vector.encode(
+            $question,
+            "OpenAI",
+            { token: "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",
+        model:"text-embedding-3-small"}) AS userEmbedding
+        CALL db.index.vector.queryNodes('courseDescription', 10, userEmbedding)
+        YIELD node, score
+        RETURN node.title, node.description,node.course_id, score
+        '''
     st.title("Search App")
 
     # Get the 'question' from the user
@@ -34,7 +44,7 @@ def main():
 
             # Your Neo4j query logic here
             with driver.session() as session:
-                results = session.run("YOUR CYPHER QUERY HERE", data)
+                results = session.run(just_search, data)
                 results = [record.data() for record in results]
 
             logging.info(results)
